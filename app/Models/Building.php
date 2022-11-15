@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Building extends Model
 {
     use HasFactory;
 
-    protected $table = "roles";
+    protected $table = "buildings";
 
     protected $fillable = [
         "id",
@@ -17,9 +17,11 @@ class Role extends Model
         "status"
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
 
-    public function users(){
-        return $this->hasMany(User::class, 'id');
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'id');
     }
+
 }
