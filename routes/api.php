@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\BuildingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::get('userProfile', [AuthController::class, 'userProfile']);
     Route::get('logout', [AuthController::class, 'logout']);
     Route::put('changePassword', [AuthController::class, 'changePassword']);
+    Route::get('building/getAllBelongUser', [BuildingController::class, 'getAllBelongUser']);
+    Route::get('room/getAllByUser/{idBuilding}', [RoomController::class, 'getAllByUser']);
 });
 
 //Consultas para UserHasRoom
@@ -38,4 +41,9 @@ Route::prefix('room')->group(function(){
     Route::get('getAllByUser', [RoomController::class, 'getAllByUser']);
     Route::post('assignRoom', [RoomController::class, 'store']);
     Route::put('updateRoom/{id}', [RoomController::class, 'update']);
+});
+
+Route::prefix('building')->group(function(){
+    Route::get('getAll', [BuildingController::class, 'index']);
+
 });
