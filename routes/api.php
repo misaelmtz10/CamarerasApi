@@ -33,14 +33,15 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::put('changePassword', [AuthController::class, 'changePassword']);
     Route::get('building/getAllBelongUser', [BuildingController::class, 'getAllBelongUser']);
     Route::get('room/getAllByUser/{idBuilding}', [RoomController::class, 'getAllByUser']);
+    Route::put('room/updateRoom/{id}', [RoomController::class, 'update']);
 });
 
 //Consultas para UserHasRoom
 Route::prefix('room')->group(function(){
     Route::get('getAll', [RoomController::class, 'index']);
-    Route::get('getAllByUser', [RoomController::class, 'getAllByUser']);
+    //Route::get('getAllByUser', [RoomController::class, 'getAllByUser']);
     Route::post('assignRoom', [RoomController::class, 'store']);
-    Route::put('updateRoom/{id}', [RoomController::class, 'update']);
+
 });
 
 Route::prefix('building')->group(function(){
