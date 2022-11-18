@@ -16,10 +16,10 @@ class RoomController extends Controller
         return $this->getResponse200($user_has_room);
     }
 
-    public function getAllByUser($idBuilding)
+    public function getAllByUser($idBuilding, $idStatus)
     {
         $idUser = auth()->user()->id;
-        $user_has_room = DB::select('SELECT uhr.id, uhr.started, uhr.ended, uhr.observations, uhr.evidence, uhr.users_id, uhr.rooms_id, r.number, r.floor, r.description, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id WHERE uhr.users_id = ?  AND b.id = ?', [$idUser, $idBuilding]);
+        $user_has_room = DB::select('SELECT uhr.id, uhr.started, uhr.ended, uhr.observations, uhr.evidence, uhr.users_id, uhr.rooms_id, r.number, r.floor, r.description, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id WHERE uhr.users_id = ?  AND b.id = ? AND uhr.status_cleaning_id = ?', [$idUser, $idBuilding, $idStatus]);
         //$user_has_room = UserHasRoom::where("users_id", "=", 1, "and", )->get();
         return $this->getResponse200($user_has_room);
     }

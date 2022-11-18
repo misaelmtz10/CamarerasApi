@@ -32,7 +32,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::put('changePassword', [AuthController::class, 'changePassword']);
     Route::get('building/getAllBelongUser', [BuildingController::class, 'getAllBelongUser']);
-    Route::get('room/getAllByUser/{idBuilding}', [RoomController::class, 'getAllByUser']);
+    Route::get('room/getAllByUser/{idBuilding}/{idStatus}', [RoomController::class, 'getAllByUser']);
     Route::put('room/updateRoom/{id}', [RoomController::class, 'update']);
 });
 
