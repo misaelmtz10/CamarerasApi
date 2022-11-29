@@ -34,7 +34,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::get('building/getAllBelongUser', [BuildingController::class, 'getAllBelongUser']);
     Route::get('room/getAllByUser/{idBuilding}/{idStatus}', [RoomController::class, 'getAllByUser']);
     Route::put('room/updateRoom/{id}', [RoomController::class, 'update']);
-    Route::put('room/getAllByRoomId/{idRoom}', [RoomController::class, 'getAllByRoomId']);
+    Route::get('room/getAllByRoomId/{idRoom}', [RoomController::class, 'getAllByRoomId']);
 });
 
 //Consultas para UserHasRoom
