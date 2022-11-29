@@ -20,7 +20,13 @@ class RoomController extends Controller
     {
         $idUser = auth()->user()->id;
         $user_has_room = DB::select('SELECT uhr.id, uhr.started, uhr.ended, uhr.observations, uhr.evidence, uhr.users_id, uhr.rooms_id, r.number, r.floor, r.description, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id WHERE uhr.users_id = ?  AND b.id = ? AND uhr.status_cleaning_id = ?', [$idUser, $idBuilding, $idStatus]);
-        //$user_has_room = UserHasRoom::where("users_id", "=", 1, "and", )->get();
+        return $this->getResponse200($user_has_room);
+    }
+    
+    public function getAllByRoomId($idRoom)
+    {
+        $idUser = auth()->user()->id;
+        $user_has_room = DB::select('SELECT uhr.id, uhr.started, uhr.ended, uhr.observations, uhr.evidence, uhr.users_id, uhr.rooms_id, r.number, r.floor, r.description, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id WHERE uhr.users_id = ? AND uhr.rooms_id = ? AND (uhr.status_cleaning_id = 1 OR uhr.status_cleaning_id = 4);', [$idUser, $idRoom]);
         return $this->getResponse200($user_has_room);
     }
 
@@ -30,10 +36,6 @@ class RoomController extends Controller
         DB::beginTransaction();
         try {
             $user_has_room = new UserHasRoom();
-            //$user_has_room->started = Carbon::now($request->started);
-            //$user_has_room->ended = Carbon::now($request->ended);
-            //$user_has_room->observations = $request->observations;
-            //$user_has_room->evidence = $request->evidence;
             $user_has_room->users_id = $request->users_id;
             $user_has_room->rooms_id = $request->rooms_id;
             $user_has_room->status_cleaning_id = $request->status_cleaning_id;
