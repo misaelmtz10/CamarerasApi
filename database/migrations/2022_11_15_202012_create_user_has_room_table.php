@@ -18,7 +18,7 @@ class CreateUserHasRoomTable extends Migration
             $table->timestamp('started')->nullable();
             $table->timestamp('ended')->nullable();
             $table->string('observations', 1000)->nullable();
-            $table->text('evidence')->nullable();
+            $table->longText('evidence')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('users_id');

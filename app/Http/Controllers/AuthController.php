@@ -54,12 +54,12 @@ class AuthController extends Controller
             $user = User::where('email', '=', $request->email)->first();
             if (isset($user->id)) {
                 if (Hash::check($request->password, $user->password)) {
-                    /*
+
                     foreach ($user->tokens as $token) { //Revoke all previous tokens
                         if ($token->last_used_at === null) { //Only revoke never used tokens
                             $token->delete();
                         }
-                    */
+                    }
                     //Create token
                     $token = $user->createToken('auth_token')->plainTextToken;
                     return response()->json([
@@ -85,8 +85,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        //        $request->user()->tokens()->delete(); //Revoke all tokens
-        $request->user()->currentAccessToken()->delete(); //Revoke current token
+        $request->user()->tokens()->delete(); //Revoke all tokens
+        //$request->user()->currentAccessToken()->delete(); //Revoke current token
         return response()->json([
             'message' => "Logout successful"
         ], 200);
