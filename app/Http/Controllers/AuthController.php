@@ -31,7 +31,7 @@ class AuthController extends Controller
                 $user->email = $request->email;
                 $user->password = Hash::make($request->password); //encrypt password
                 $user->status = $request->status;
-                $user->role_id = 2;
+                $user->role_id = $request->role_id;
                 $user->save();
                 DB::commit();
                 return $this->getResponse201('user account', 'created', $user);

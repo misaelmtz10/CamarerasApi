@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\UserHasRoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,6 +15,12 @@ class RoomController extends Controller
     {
         $user_has_room = UserHasRoom::with('users', 'rooms', 'status_cleaning')->get();
         return $this->getResponse200($user_has_room);
+    }
+
+    public function getAllRooms()
+    {
+        $rooms = Room::all();
+        return $this->getResponse200($rooms);
     }
 
     public function getAllByUser($idBuilding, $idStatus)
