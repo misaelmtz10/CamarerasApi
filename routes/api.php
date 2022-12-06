@@ -41,7 +41,9 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
 //Consultas para UserHasRoom
 Route::prefix('room')->group(function(){
     Route::get('getAll', [RoomController::class, 'index']);
+    Route::get('getAllForAdmin', [RoomController::class, 'getAllForAdmin']);
     Route::get('getAllRooms', [RoomController::class, 'getAllRooms']);
+    Route::get('getUserHasRoomById/{idRoom}', [RoomController::class, 'getUserHasRoomById']);
     Route::post('assignRoom', [RoomController::class, 'store']);
 
 });
