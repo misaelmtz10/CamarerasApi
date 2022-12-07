@@ -16,7 +16,7 @@ class RoomController extends Controller
         $user_has_room = UserHasRoom::with('users', 'rooms', 'status_cleaning')->get();
         return $this->getResponse200($user_has_room);
     }
-    
+
     public function getAllForAdmin(){
         $user_has_room = DB::select('SELECT uhr.id, uhr.created_at, uhr.updated_at, uhr.users_id, u.name, u.surname, u.lastname, uhr.rooms_id, r.number, r.floor, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id JOIN users u ON u.id = uhr.users_id');
         return $this->getResponse200($user_has_room);
@@ -37,7 +37,7 @@ class RoomController extends Controller
 
     public function getUserHasRoomById($idRoom)
     {
-        $user_has_room = DB::select('SELECT uhr.id, uhr.started, uhr.ended, uhr.observations, uhr.evidence, r.number, r.floor, r.description, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id WHERE uhr.id = ? ', [$idRoom]);
+        $user_has_room = DB::select('SELECT uhr.id, uhr.started, uhr.ended, uhr.observations, uhr.evidence, uhr.users_id, uhr.rooms_id, r.number, r.floor, r.description, uhr.status_cleaning_id FROM user_has_room uhr JOIN rooms r ON r.id = uhr.rooms_id JOIN buildings b ON b.id = r.building_id WHERE uhr.id = ? ', [$idRoom]);
         return $this->getResponse200($user_has_room);
     }
 
