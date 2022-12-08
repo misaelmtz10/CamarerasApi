@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class RoomController extends Controller
 {
@@ -85,12 +86,12 @@ class RoomController extends Controller
                     return $this->getResponse201('user_has_room', 'updated', $user_has_room);
                 } else {
                     if ($user_has_room->users_id == auth()->user()->id) { //auth()->user()->id
-                        $user_has_room->started = $request->started != null ? Carbon::parse($request->started): $user_has_room->started;
-                        $user_has_room->ended = $request->ended != null ? Carbon::parse($request->ended): $user_has_room->ended;
+                        $user_has_room->started = $request->started != null ? $request->started: $user_has_room->started;
+                        $user_has_room->ended = $request->ended != null ? $request->started: $user_has_room->ended;
                         $user_has_room->observations = $request->observations != null ? $request->observations : $user_has_room->observations;
                         $user_has_room->evidence = $request->evidence != null ? $request->evidence : null;
                         $user_has_room->status_cleaning_id = $request->status_cleaning_id != null ? $request->status_cleaning_id : $user_has_room->status_cleaning_id;
-
+                        error_log($user_has_room);
                         $user_has_room->update();
                         DB::commit();
                         return $this->getResponse201('user_has_room', 'created', $user_has_room);

@@ -15,8 +15,8 @@ class CreateUserHasRoomTable extends Migration
     {
         Schema::create('user_has_room', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('started')->nullable();
-            $table->timestamp('ended')->nullable();
+            $table->dateTime('started')->nullable();
+            $table->dateTime('ended')->nullable();
             $table->string('observations', 1000)->nullable();
             $table->longText('evidence')->nullable();
             $table->timestamps();
