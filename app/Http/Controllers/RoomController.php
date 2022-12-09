@@ -91,7 +91,7 @@ class RoomController extends Controller
                         $user_has_room->observations = $request->observations != null ? $request->observations : $user_has_room->observations;
                         $user_has_room->evidence = $request->evidence != null ? $request->evidence : null;
                         $user_has_room->status_cleaning_id = $request->status_cleaning_id != null ? $request->status_cleaning_id : $user_has_room->status_cleaning_id;
-                        error_log($user_has_room);
+                        //error_log($user_has_room);
                         $user_has_room->update();
                         DB::commit();
                         return $this->getResponse201('user_has_room', 'created', $user_has_room);
